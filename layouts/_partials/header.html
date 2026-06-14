@@ -1,0 +1,10 @@
+<nav class="flex align-center">
+  <a href="{{ "/" | relLangURL }}" class="plain flex-grow font-medium">{{ site.Title }}</a>
+  {{ range site.Menus.main }}
+    <a href="{{ .URL | relLangURL }}" class="plain muted sl">{{ .Name }}</a>
+  {{ end }}
+  <button id="theme-toggle" class="sl" aria-label="Toggle theme">
+    <span class="theme-toggle-slide"></span>
+    <span class="theme-toggle-switch"></span>
+  </button>
+</nav>

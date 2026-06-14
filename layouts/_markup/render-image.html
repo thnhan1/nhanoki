@@ -1,0 +1,9 @@
+{{- $u := urls.Parse .Destination -}}
+{{- $src := .Destination -}}
+{{- if not $u.IsAbs -}}
+  {{- $path := strings.TrimPrefix "./" $u.Path -}}
+  {{- with .Page.Resources.GetMatch $path -}}
+    {{- $src = .RelPermalink -}}
+  {{- end -}}
+{{- end -}}
+<img src="{{ $src }}" alt="{{ .Text }}"{{ with .Title }} title="{{ . }}"{{ end }} loading="lazy">

@@ -1,0 +1,17 @@
+{{ define "main" }}
+  <article>
+    <h1>{{ .Title }}</h1>
+    
+    <p class="smaller muted">{{ .Date.Format "January 2, 2006" }} · {{ .ReadingTime }} minute read</p>
+    
+    {{ .Content }}
+    
+    {{ with .Params.topics }}
+      <div class="mn2">
+        {{ range . }}
+          <a href="/topics/{{ . | urlize }}" class="tag">{{ . }}</a>
+        {{ end }}
+      </div>
+    {{ end }}
+  </article>
+{{ end }}

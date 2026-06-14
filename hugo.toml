@@ -1,0 +1,12 @@
+name = "nhanoki"
+license = "MIT"
+licenselink = "https://github.com/nhanth1/nhanoki/blob/main/LICENSE"
+description = "A minimal, content-focused Hugo theme inspired by Steph Ango's website"
+homepage = "https://github.com/nhanth1/nhanoki"
+tags = ["minimal", "blog", "responsive", "clean", "content-focused"]
+features = ["minimal", "responsive", "fast", "seo-friendly"]
+min_version = "0.146.0"
+
+[author]
+  name = "Nhan"
+  homepage = "https://nhanth1.github.io"

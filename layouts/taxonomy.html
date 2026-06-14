@@ -1,0 +1,21 @@
+{{ define "main" }}
+<div class="wrap">
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+  
+  {{ if eq .Data.Plural "topics" }}
+    <p class="home-topics">
+      {{ range $i, $e := .Data.Terms.Alphabetical }}{{ if $i }}, {{ end }}<a href="{{ $e.Page.RelPermalink }}">{{ $e.Page.Title }}</a>{{ end }}
+    </p>
+  {{ else }}
+    <ul class="list-plain home-writing">
+      {{ range .Pages.ByDate.Reverse }}
+        <li class="flex">
+          <span class="muted tabular-nums home-writing-date">{{ .Date.Format "2006 · 01" }}</span>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+        </li>
+      {{ end }}
+    </ul>
+  {{ end }}
+</div>
+{{ end }}

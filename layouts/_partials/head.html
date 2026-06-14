@@ -1,0 +1,11 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+{{ partialCached "head/css.html" . }}
+<style>
+  :root {
+    --icon-sun: url("{{ "sun.svg" | relURL }}");
+    --icon-moon: url("{{ "moon.svg" | relURL }}");
+  }
+</style>
+{{ partialCached "head/js.html" . }}
