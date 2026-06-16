@@ -9,6 +9,14 @@ A minimalist Hugo theme focused on content, inspired by [stephango.com](https://
 
 ## Installation
 
+```bash
+git submodule add https://github.com/thnhan1/nhanoki.git themes/nhanoki
+
+# 3. Commit
+git add .gitmodules themes/nhanoki
+git commit -m "Add nhanoki theme as submodule"
+```
+
 Place the theme in `themes/nhanoki` directory and declare it in your site's config file:
 
 ```toml

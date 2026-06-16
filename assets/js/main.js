@@ -1,7 +1,6 @@
 (function () {
   const stored = localStorage.getItem('theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-  let current = stored || (prefersDark ? 'dark' : 'light');
+  let current = stored || 'light';
 
   function apply(theme) {
     current = theme;

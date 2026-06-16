@@ -12,7 +12,7 @@
   <hr>
 
   {{ with site.Taxonomies.topics }}
-    <p class="muted sb"><a href="/topics" class="plain muted">Topics</a></p>
+    <p class="muted sb font-bold"><a href="/topics" class="plain muted">Topics</a></p>
     <p class="home-topics">
       {{ range $i, $e := .Alphabetical }}{{ if $i }}, {{ end }}<a href="{{ $e.Page.RelPermalink }}">{{ $e.Page.Title }}</a>{{ end }}
     </p>
@@ -20,7 +20,7 @@
     <hr>
   {{ end }}
 
-  <p class="muted sb"><a href="/posts" class="plain muted">Writing</a></p>
+  <p class="muted sb font-bold"><a href="/posts" class="plain muted">Writing</a></p>
   <ul class="list-plain home-writing">
     {{ range $posts }}
       <li class="flex">

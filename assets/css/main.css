@@ -167,7 +167,7 @@ template {
 }
 
 :root {
-    --font-content: -apple-system, BlinkMacSystemFont, "Inter", "IBM Plex Sans", Segoe UI, Helvetica, Arial, sans-serif;
+    --font-content: "Open Sans", -apple-system, BlinkMacSystemFont, "Inter", "IBM Plex Sans", Segoe UI, Helvetica, Arial, sans-serif;
     --font-ui: var(--font-content);
     --font-mono: ui-monospace, SFMono-Regular, "Cascadia Code", "IBM Plex Mono", "Roboto Mono", "DejaVu Sans Mono", "Liberation Mono", Menlo, Monaco, "Consolas", "Source Code Pro", monospace;
     --border-radius: 4px;
@@ -986,6 +986,10 @@ flex,.flex {
 
 .font-normal {
     font-weight: 400
+}
+
+.font-bold {
+    font-weight: bolder;
 }
 
 .tabular-nums {
@@ -2005,6 +2009,20 @@ main {
     margin: 0
 }
 
+@media(max-width: 600px) {
+    .newsletter {
+        flex-direction: column
+    }
+
+    .newsletter input[type="email"] {
+        width: 100%
+    }
+
+    .newsletter button {
+        align-self: flex-start
+    }
+}
+
 .home-writing {
     padding: 0;
     margin: 0
@@ -2020,6 +2038,18 @@ main {
 .home-writing-date {
     flex-shrink: 0;
     width: 4.5em
+}
+
+.breadcrumb {
+    font-weight: 600
+}
+
+.breadcrumb a {
+    text-decoration: none
+}
+
+.breadcrumb a:hover {
+    color: var(--color-action)
 }
 
 /* 404 page */

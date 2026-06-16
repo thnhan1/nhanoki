@@ -1,0 +1,20 @@
+{{- $home := site.Home -}}
+<a href="{{ $home.RelPermalink }}" class="plain">{{ site.Title }}</a>
+
+{{- if not .IsHome }}
+
+  {{- if eq .Kind "page" }}
+    {{- with .CurrentSection }}
+      <span class="muted">/</span>
+      <a href="{{ .RelPermalink }}" class="plain">{{ .Title }}</a>
+    {{- end }}
+
+  {{- else if eq .Kind "term" }}
+    {{- $taxonomyPage := site.GetPage .Data.Plural }}
+    {{- with $taxonomyPage }}
+      <span class="muted">/</span>
+      <a href="{{ .RelPermalink }}" class="plain">{{ .Title }}</a>
+    {{- end }}
+  {{- end }}
+
+{{- end }}
