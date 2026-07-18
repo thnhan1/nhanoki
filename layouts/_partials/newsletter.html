@@ -1,4 +1,11 @@
 <div class="newsletter wrap px-2 fieldset">
-    <input type="email" placeholder="Enter your email">   
-    <button class="button btn-primary">Subscribe</button>
+    <input type="email" placeholder="Enter your email" id="newsletter-email">   
+    <button class="button btn-primary" id="newsletter-subscribe">Subscribe</button>
+</div>
+
+<div id="newsletter-dialog" class="dialog-overlay" hidden>
+  <div class="dialog-box">
+    <p>Thanks for subscribing! This is just a demo — no emails will be sent. I'll do my best 🫶</p>
+    <button class="button btn-primary" id="newsletter-dialog-close">OK</button>
+  </div>
 </div>

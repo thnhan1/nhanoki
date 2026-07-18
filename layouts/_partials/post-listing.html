@@ -1,0 +1,9 @@
+<ul class="list-plain home-writing">
+  {{ range . }}
+    <li class="flex">
+      <span class="muted tabular-nums home-writing-date-wide">{{ .Date.Format "January 2, 2006" }}</span>
+      <span class="muted tabular-nums home-writing-date-narrow">{{ .Date.Format "2006-01-02" }}</span>
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+    </li>
+  {{ end }}
+</ul>

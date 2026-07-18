@@ -1,12 +1,13 @@
 {{- $home := site.Home -}}
-<a href="{{ $home.RelPermalink }}" class="plain">{{ site.Title }}</a>
+<a href="{{ $home.RelPermalink }}" class="plain font-bold">{{ site.Title }}</a>
 
 {{- if not .IsHome }}
 
   {{- if eq .Kind "page" }}
-    {{- with .CurrentSection }}
+    {{- $section := .CurrentSection }}
+    {{- if and $section (ne $section $home) }}
       <span class="muted">/</span>
-      <a href="{{ .RelPermalink }}" class="plain">{{ .Title }}</a>
+      <a href="{{ $section.RelPermalink }}" class="plain">{{ $section.Title }}</a>
     {{- end }}
 
   {{- else if eq .Kind "term" }}

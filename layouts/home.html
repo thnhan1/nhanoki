@@ -3,7 +3,7 @@
   {{ $posts := (where site.RegularPages "Type" "posts").ByDate.Reverse }}
 
   {{ with index $posts 0 }}
-    <p class="muted sb">Latest</p>
+    <p class="muted sb font-bold">Latest</p>
     <h1 class="home-latest-title"><a href="{{ .RelPermalink }}" class="plain">{{ .Title }}</a></h1>
     <p class="smaller muted">{{ .Date.Format "January 2, 2006" }} · {{ .ReadingTime }} minute read</p>
     <p>{{ .Summary | plainify }} <a href="{{ .RelPermalink }}">Keep reading →</a></p>
@@ -21,14 +21,7 @@
   {{ end }}
 
   <p class="muted sb font-bold"><a href="/posts" class="plain muted">Writing</a></p>
-  <ul class="list-plain home-writing">
-    {{ range $posts }}
-      <li class="flex">
-        <span class="muted tabular-nums home-writing-date">{{ .Date.Format "2006 · 01" }}</span>
-        <a href="{{ .RelPermalink }}">{{ .Title }}</a>
-      </li>
-    {{ end }}
-  </ul>
+  {{ partial "post-listing.html" $posts }}
 
 
 </div>

@@ -1,6 +1,70 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
 <title>{{ if .IsHome }}{{ site.Title }}{{ else }}{{ printf "%s | %s" .Title site.Title }}{{ end }}</title>
+{{- $desc := or .Description (or (and .IsHome site.Params.description) (and (not .IsHome) (or .Summary ""))) -}}
+{{- if not $desc }}{{ $desc = site.Params.description }}{{ end -}}
+{{- with $desc }}{{ $plain := . | plainify | truncate 160 }}{{ printf `<meta name="description" content="%s">` $plain | safeHTML }}{{ end -}}
+
+{{- /* Canonical URL */}}
+<link rel="canonical" href="{{ .Permalink }}">
+
+{{- /* Open Graph */}}
+<meta property="og:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:site_name" content="{{ site.Title }}">
+{{- with $desc }}{{ $plain := . | plainify | truncate 160 }}<meta property="og:description" content="{{ $plain }}">{{ end -}}
+{{- with site.Params.author }}<meta property="og:author" content="{{ . }}">{{ end -}}
+{{- with .Params.image }}<meta property="og:image" content="{{ . | absURL }}">{{ end -}}
+
+{{- /* Twitter Card */}}
+<meta name="twitter:card" content="summary{{ if .Params.image }}_large_image{{ end }}">
+<meta name="twitter:title" content="{{ if .IsHome }}{{ site.Title }}{{ else }}{{ .Title }}{{ end }}">
+{{- with $desc }}{{ $plain := . | plainify | truncate 160 }}<meta name="twitter:description" content="{{ $plain }}">{{ end -}}
+{{- with site.Params.twitter }}<meta name="twitter:site" content="@{{ . }}">{{ end -}}
+
+{{- /* JSON-LD Structured Data */}}
+{{- $authorName := site.Params.author | default site.Title -}}
+{{- $socialLinks := slice -}}
+{{- with site.Params.social.twitter }}{{ $socialLinks = $socialLinks | append (printf "https://x.com/%s" .) }}{{ end -}}
+{{- with site.Params.social.github }}{{ $socialLinks = $socialLinks | append (printf "https://github.com/%s" .) }}{{ end -}}
+{{- with site.Params.social.linkedin }}{{ $socialLinks = $socialLinks | append (printf "https://linkedin.com/in/%s" .) }}{{ end -}}
+{{- $descJSON := $desc | plainify | truncate 200 -}}
+{{- $baseURL := site.BaseURL | strings.TrimRight "/" -}}
+<script type="application/ld+json">{{ if .IsPage }}[{{ end }}
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": {{ $authorName | jsonify | safeJS }},
+  "url": {{ $baseURL | jsonify | safeJS }}{{ with site.Params.description }},
+  "description": {{ . | plainify | jsonify | safeJS }}{{ end }},
+  "mainEntityOfPage": {
+    "@type": "WebSite",
+    "name": {{ site.Title | jsonify | safeJS }},
+    "url": {{ $baseURL | jsonify | safeJS }}
+  }{{ with $socialLinks }},
+  "sameAs": {{ $socialLinks | jsonify | safeJS }}{{ end }}
+}
+{{- if .IsPage }}
+,{
+  "@context": "https://schema.org",
+  "@type": {{ if eq .Type "posts" }}"BlogPosting"{{ else }}"Article"{{ end }},
+  "headline": {{ .Title | jsonify | safeJS }},
+  "url": {{ .Permalink | jsonify | safeJS }},
+  "author": {
+    "@type": "Person",
+    "name": {{ $authorName | jsonify | safeJS }}
+  },
+  "datePublished": {{ .Date.Format "2006-01-02T15:04:05Z" | jsonify | safeJS }},
+  "dateModified": {{ .Lastmod.Format "2006-01-02T15:04:05Z" | jsonify | safeJS }},
+  "description": {{ $descJSON | jsonify | safeJS }},
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {{ .Permalink | jsonify | safeJS }}
+  }
+}
+{{- end }}{{ if .IsPage }}]{{ end }}</script>
+
 {{ partialCached "head/css.html" . }}
 <style>
   :root {

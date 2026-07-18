@@ -21,6 +21,22 @@
       localStorage.setItem('theme', next);
     });
 
+    var subscribeBtn = document.getElementById('newsletter-subscribe');
+    var dialog = document.getElementById('newsletter-dialog');
+    var closeBtn = document.getElementById('newsletter-dialog-close');
+    if (subscribeBtn && dialog && closeBtn) {
+      subscribeBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        dialog.hidden = false;
+      });
+      closeBtn.addEventListener('click', function () {
+        dialog.hidden = true;
+      });
+      dialog.addEventListener('click', function (e) {
+        if (e.target === dialog) dialog.hidden = true;
+      });
+    }
+
     document.querySelectorAll('.copy-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
         const raw = btn.getAttribute('data-clipboard-text');
