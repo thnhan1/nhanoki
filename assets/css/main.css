@@ -1064,6 +1064,12 @@ nav {
     max-width: var(--wrap-wide)
 }
 
+.nav-links {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
 @media(min-width: 600px) {
     .dkh {
         display:none
@@ -1087,10 +1093,15 @@ nav {
     }
 
     nav .breadcrumb {
-        min-width: 100%;
-        margin-bottom: 0.25em;
+        flex: 1;
+    }
+
+    nav .nav-links {
+        margin-left: auto;
     }
 }
+
+
 
 @media(max-width: 600px) {
     .mh {
@@ -1101,14 +1112,13 @@ nav {
         grid-auto-flow: row
     }
 
+    .mobile-hidden {
+        display: none;
+    }
+
     nav {
         flex-wrap: wrap;
         gap: 0.5em;
-    }
-
-    nav .breadcrumb {
-        min-width: 100%;
-        margin-bottom: 0.25em;
     }
 
     body {
@@ -2057,6 +2067,103 @@ body {
 main {
     flex: 1 0 auto
 }
+
+/* ── SoundCloud retro embed ───────────────────────── */
+.sc-embed {
+    max-width: var(--wrap-normal);
+    margin: 2em auto;
+    background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+    border-radius: 12px;
+    padding: 1.25em 1.25em 0.75em;
+    box-shadow:
+        0 4px 16px rgba(0,0,0,0.3),
+        inset 0 1px 0 rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.06);
+}
+
+.sc-embed-tape {
+    display: flex;
+    align-items: center;
+    gap: 0.75em;
+    margin-bottom: 0.75em;
+    padding: 0.5em 0.75em;
+    background: rgba(0,0,0,0.25);
+    border-radius: 6px;
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+.sc-embed-reel {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.15);
+    flex-shrink: 0;
+    position: relative;
+    animation: sc-spin 4s linear infinite paused;
+}
+
+.sc-embed:hover .sc-embed-reel {
+    animation-play-state: running;
+}
+
+.sc-embed-reel::after {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(255,255,255,0.1);
+}
+
+.sc-embed-reel-l {
+    background: radial-gradient(circle, #444 2px, #333 40%, #222);
+}
+
+.sc-embed-reel-r {
+    background: radial-gradient(circle, #555 2px, #3a3a3a 40%, #222);
+}
+
+@keyframes sc-spin {
+    to { transform: rotate(360deg); }
+}
+
+.sc-embed-label {
+    flex: 1;
+    font-family: var(--font-mono);
+    font-size: 0.75em;
+    color: rgba(255,255,255,0.6);
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    letter-spacing: 0.03em;
+}
+
+.sc-embed-player {
+    width: 100%;
+    border: none;
+    border-radius: 6px;
+    display: block;
+}
+
+.sc-embed-footer {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    margin-top: 0.5em;
+    padding: 0.25em 0;
+}
+
+.sc-embed-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+    transition: background 0.2s;
+}
+
+.sc-embed:hover .sc-embed-dot:nth-child(1) { background: #ff7700; }
+.sc-embed:hover .sc-embed-dot:nth-child(2) { background: #ff5500; }
+.sc-embed:hover .sc-embed-dot:nth-child(3) { background: #ff3300; }
 
 .home-latest-title {
     margin-top: .25em;

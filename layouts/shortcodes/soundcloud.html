@@ -1,0 +1,39 @@
+{{- $id := .Get "id" | default "" -}}
+{{- $url := .Get "url" | default "" -}}
+{{- $title := .Get "title" -}}
+{{- $height := .Get "height" | default 166 -}}
+{{- $embedURL := "" -}}
+
+{{- $color := "ff7700" -}}
+{{- if $id -}}
+  {{- $embedURL = printf "https://w.soundcloud.com/player/?url=https://api.soundcloud.com/tracks/%s&color=%s&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true" $id $color -}}
+{{- else if $url -}}
+  {{- $embedURL = printf "https://w.soundcloud.com/player/?url=%s&color=%s&auto_play=false&hide_related=false&show_comments=true&show_user=true&show_reposts=false&show_teaser=true" $url $color -}}
+{{- end -}}
+
+{{- if $embedURL -}}
+<div class="sc-embed">
+  {{- with $title }}
+  <div class="sc-embed-tape">
+    <div class="sc-embed-reel sc-embed-reel-l"></div>
+    <div class="sc-embed-label">{{ $title }}</div>
+    <div class="sc-embed-reel sc-embed-reel-r"></div>
+  </div>
+  {{- end }}
+  <iframe
+    src="{{ $embedURL }}"
+    height="{{ $height }}"
+    class="sc-embed-player"
+    allow="autoplay"
+    loading="lazy"
+    title="{{ $title | default "SoundCloud" | htmlEscape }}"
+  ></iframe>
+  <div class="sc-embed-footer">
+    <span class="sc-embed-dot"></span>
+    <span class="sc-embed-dot"></span>
+    <span class="sc-embed-dot"></span>
+  </div>
+</div>
+{{- else -}}
+  {{- errorf "soundcloud shortcode: missing 'id' or 'url' parameter" -}}
+{{- end -}}
